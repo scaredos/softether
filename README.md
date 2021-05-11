@@ -10,7 +10,7 @@ For more information on SoftEther's API, please refer to the [SoftEther Offical 
 ## Coverage
 Coverage for the following languages is listed below. If you'd like to contribute language bindings for a programming language that has not been covered, please open a pull request.
 
-| Language | Coverage |
-| -------- | -------- |
-| [Python](https://github.com/scaredos/softether/blob/main/python/src/softetherapi.py)   |  ~15%    | 
-| Go      |   0%     |
+| Language | Coverage | Finished |
+| -------- | -------- | -------- |
+| [Python](https://github.com/scaredos/softether/blob/main/python/src/softetherapi.py)   |  ~75%    | Essential Functions |
+| Go      |   0%     | No |
