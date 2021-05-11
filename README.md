@@ -1,13 +1,13 @@
 # softether
 A collection of unofficial SoftEther client libraries
 
-# Development
+## Development
 This repository is currently under development, please come back later for finalized and finished client libraries.
 
-# Documentation
-For more information on SoftEther's API, please refer to [SoftEther Offical Docs](https://github.com/SoftEtherVPN/SoftEtherVPN/tree/master/developer_tools/vpnserver-jsonrpc-clients/)
+## Documentation
+For more information on SoftEther's API, please refer to the [SoftEther Offical Docs](https://github.com/SoftEtherVPN/SoftEtherVPN/tree/master/developer_tools/vpnserver-jsonrpc-clients/)
 
-# Coverage
+## Coverage
 Coverage for the following languages is listed below. If you'd like to contribute language bindings for a programming language that has not been covered, please open a pull request.
 
 | Language | Coverage |
