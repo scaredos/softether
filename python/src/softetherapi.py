@@ -357,3 +357,101 @@ class SoftEtherAPI:
                 "Name_str": connectName
             }
         })
+
+    def getConnectionInfo(self, connectName: str):
+        """
+        Get TCP connection information by name
+
+        :param connectName: Connection name
+        :return: Connection information
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "GetConnectionInfo",
+            "params": {
+                "Name_str": connectName
+            }
+        })
+
+    def setHubOnline(self, hubname: str, online: bool = True):
+        """
+        Switch Virtual Hub online/offline
+
+        :param hubname: Name of virtual hub
+        :param online: Online flag (default: True)
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "SetHubOnline",
+            "params": {
+                "HubName_str": hubname,
+                "Online_bool": online
+            }
+        })
+
+    def getHubStatus(self, hubname: str):
+        """
+        Get hub status
+
+        :param hubname: Name of virtual hub
+        :return: Status of hub
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "GetHubStatus",
+            "params": {
+                "HubName_str": hubname
+            }
+        })
+
+    def getHubLog(self, hubname: str):
+        """
+        Get hub logs
+
+        :param hubname: Name of virtual hub
+        :return: Logs of hub
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "GetHubLog",
+            "params": {
+                "HubName_str": hubname
+            }
+        })
+
+    def addCa(self, hubname: str, certBin: str):
+        """
+        Add trusted CA certificate to Hub
+
+        :param hubname: Name of virtual hub
+        :param certBin: CA Certificate as string
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "AddCa",
+            "params": {
+                "HubName_str": hubname,
+                "Cert_bin": certbin
+            }
+        })
+
+    def enumCa(self, hubname: str):
+        """
+        Get list of trusted CA certificates
+
+        :param hubname: Name of virtual hub
+        :return: List of trusted CA certificates of hub
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "EnumCa",
+            "params": {
+                "HubName_str": hubname
+            }
+        })
