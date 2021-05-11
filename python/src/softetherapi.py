@@ -585,3 +585,95 @@ class SoftEtherAPI:
                 "HubName_str": hubname
             }
         })
+
+    def getSessionStatus(self, hubname: str, name: str):
+        """
+        Get status of session
+
+        :param hubname: Name of virtual hub
+        :param name: Name of session
+        :return: Status of session
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "GetSessionStatus",
+            "params": {
+                "HubName_str": hubname,
+                "Name_str": name
+            }
+        })
+
+    def deleteSession(self, hubname: str, name: str):
+        """
+        Delete session
+
+        :param hubname: Name of virtual hub
+        :param name: Name of session
+        :return: Status of session
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "DeleteSession",
+            "params": {
+                "HubName_str": hubname,
+                "Name_str": name
+            }
+        })
+
+    # TODO:
+    # Add MAC and iptable functions
+    #   - EnumIpTable
+    #   - DeleteIpTable
+    #   - EnumMacTable
+    #   - DeleteMacTable
+
+    def enableSecureNat(self, hubname: str):
+        """
+        Enable SecureNAT (Virtual NAT and DHCP Server)
+
+        :param hubname: Name of virtual hub
+        :return: Virtual hub
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "EnableSecureNAT",
+            "params": {
+                "HubName_str": hubname
+            }
+        })
+
+    def disableSecureNat(self, hubname: str):
+        """
+        Disable SecureNAT (Virtual NAT and DHCP Server)
+
+        :param hubname: Name of virtual hub
+        :return: Virtual hub
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "DisableSecureNAT",
+            "params": {
+                "HubName_str": hubname
+            }
+        })
+
+    def rebootServer(self):
+        """
+        Reboot server
+
+        :return: Server status
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "RebootServer",
+            "params": {}
+        })
+
+
+# TODO:
+# Add all other functions that are non-essential to most users
