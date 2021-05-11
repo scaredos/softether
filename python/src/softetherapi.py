@@ -328,3 +328,32 @@ class SoftEtherAPI:
                 "HubName_str": hubname
             }
         })
+
+    def enumConnection(self):
+        """
+        Get list of TCP connections
+
+        :return: Dict containg list of TCP connections
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "EnumConnection",
+            "params": {}
+        })
+
+    def disconnectConnection(self, connectName: str):
+        """
+        Disconnect TCP connection by name
+
+        :param connectName: Connection name
+        :return: TCP connection disconnected
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "DisconnectConnection",
+            "params": {
+                "Name_str": connectName
+            }
+        })
