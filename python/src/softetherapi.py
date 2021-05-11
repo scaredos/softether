@@ -487,7 +487,7 @@ class SoftEtherAPI:
         """
         Change user settings
 
-        :param hubname: Name of hub to create user within
+        :param hubname: Name of hub to update user within
         :param name: User name
         :param realname: Use real name
         :param note: User note
@@ -514,7 +514,7 @@ class SoftEtherAPI:
         """
         Change user settings
 
-        :param hubname: Name of hub to create user within
+        :param hubname: Name of hub to get user within
         :param name: User name
         :return: User information
         """
@@ -525,5 +525,63 @@ class SoftEtherAPI:
             "params": {
                 "HubName_str": hubname,
                 "Name_str": name
+            }
+        })
+
+    def deleteUser(self, hubname: str, name: str):
+        """
+        Delete User
+
+        :param hubname: Name of hub to delete user within
+        :param name: User name
+        :return: User information
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "DeleteUser",
+            "params": {
+                "HubName_str": hubname,
+                "Name_str": name
+            }
+        })
+
+    def enumUser(self, hubname: str):
+        """
+        Get list of users
+
+        :param hubname: Name of virtual hub
+        :return: Dict with list of users
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "EnumUser",
+            "params": {
+                "HubName_str": hubname
+            }
+        })
+
+    # TODO:
+    # Add group management functions
+    #     - SetGroup
+    #     - DeleteGroup
+    #     - CreateGroup
+    #     - GetGroup
+    #     - EnumGroup
+
+    def enumSession(self, hubname: str):
+        """
+        Get list of VPN sessions
+
+        :param hubname: Name of virtual hub
+        :return: List of VPN sessions
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "EnumSession",
+            "params": {
+                "HubName_str": hubname
             }
         })
