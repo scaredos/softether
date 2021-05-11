@@ -455,3 +455,75 @@ class SoftEtherAPI:
                 "HubName_str": hubname
             }
         })
+
+    def createUser(self, hubname: str, name: str, realname: str, note: str, expiretime: str, authpassword: str):
+        """
+        Create User
+
+        :param hubname: Name of hub to create user within
+        :param name: User name
+        :param realname: Use real name
+        :param note: User note
+        :param expiretime: Time that user expires (FORMAT: 2020-08-01T12:24:36.123)
+        :param authpassword: Password for user
+        :return: User information
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "CreateUser",
+            "params": {
+                "HubName_str": hubname,
+                "Name_str": name,
+                "Realname_utf": realname,
+                "Note_utf": note,
+                "ExpireTime_dt": expiretime,
+                "AuthType_u32": 1,
+                "Auth_Password_str": authpassword,
+            }
+        })
+
+    def setUser(self, hubname: str, name: str, realname: str, note: str, expiretime: str, authpassword: str):
+        """
+        Change user settings
+
+        :param hubname: Name of hub to create user within
+        :param name: User name
+        :param realname: Use real name
+        :param note: User note
+        :param expiretime: Time that user expires (FORMAT: 2020-08-01T12:24:36.123)
+        :param authpassword: Password for user
+        :return: User information
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "SetUser",
+            "params": {
+                "HubName_str": hubname,
+                "Name_str": name,
+                "Realname_utf": realname,
+                "Note_utf": note,
+                "ExpireTime_dt": expiretime,
+                "AuthType_u32": 1,
+                "Auth_Password_str": authpassword,
+            }
+        })
+
+    def getUser(self, hubname: str, name: str):
+        """
+        Change user settings
+
+        :param hubname: Name of hub to create user within
+        :param name: User name
+        :return: User information
+        """
+        return self.requestHandler(json={
+            "jsonrpc": "2.0",
+            "id": "rpc_call_id",
+            "method": "GetUser",
+            "params": {
+                "HubName_str": hubname,
+                "Name_str": name
+            }
+        })

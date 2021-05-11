@@ -12,5 +12,5 @@ Coverage for the following languages is listed below. If you'd like to contribut
 
 | Language | Coverage |
 | -------- | -------- |
-| [Python](https://github.com/scaredos/softether/blob/main/python/src/softetherapi.py)   |  ~10%    | 
+| [Python](https://github.com/scaredos/softether/blob/main/python/src/softetherapi.py)   |  ~15%    | 
 | Go      |   0%     |
