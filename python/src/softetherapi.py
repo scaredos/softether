@@ -1,3 +1,4 @@
+# SoftEther Unofficial Client Library
 __author__ = 'scaredos'
 
 __version__ = '0.0.1'
@@ -26,7 +27,7 @@ class SoftEtherAPI:
         Provide credentials for authentication with specified server
 
         :param ip: IP address of SoftEther server
-        :param port: Port of SoftEther XML-RPC API (default: 443)
+        :param port: Port of SoftEther JSON-RPC API (default: 443)
         :param hubname: SoftEther username
         :param password: SoftEther password
         """
