@@ -8,6 +8,7 @@ __status__ = 'Production'
 
 import json
 import requests
+
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -38,7 +39,13 @@ class SoftEtherAPI:
         self.session = requests.Session()
         self.url = f'https://{self.ip}:{self.port}/api'
 
-    def requestHandler(self, json: dict):
+    def _request_handler(self, json: dict):
+        """
+        Handle requests for functions
+
+        :param json: JSON data to POST to SoftEther API
+        :return: JSON response
+        """
         response = self.session.post(self.url, json=json)
 
         if response.status_code == 200:
@@ -55,7 +62,7 @@ class SoftEtherAPI:
         self.session.auth = (self.hubname, self.password)
         self.session.verify = False
 
-        if self.requestHandler(json={
+        if self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "Test",
@@ -67,40 +74,40 @@ class SoftEtherAPI:
 
         return False
 
-    def getServerInfo(self):
+    def get_server_info(self):
         """
         Get server information
 
         :return: Dict containing server information
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetServerInfo",
             "params": {}
         })
 
-    def getServerStatus(self):
+    def get_server_status(self):
         """
         Get current server status
 
         :return: Dict containing server statusinformation
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetServerStatus",
             "params": {}
         })
 
-    def createListener(self, port: int):
+    def create_listener(self, port: int):
         """
         Create new TCP listener
 
         :param port: TCP listener port to manage
         :return: Dict containing information on new listener
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "CreateListener",
@@ -110,27 +117,27 @@ class SoftEtherAPI:
             }
         })
 
-    def enumListener(self):
+    def enum_listener(self):
         """
         Get list of TCP listeners
 
         :return: Dict containing list of listeners
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnumListener",
             "params": {}
         })
 
-    def deleteListener(self, port: int):
+    def delete_listener(self, port: int):
         """
         Delete TCP listener
 
         :param port: TCP listener port to manage
         :return: Dict containing listener status
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "DeleteListener",
@@ -139,14 +146,14 @@ class SoftEtherAPI:
             }
         })
 
-    def manageListener(self, port: int, enabled: bool):
+    def manage_listener(self, port: int, enabled: bool):
         """
         Enable/disable TCP listener
 
         :param port: TCP listener port to manage
         :param enabled: Status of TCP listener
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnableListener",
@@ -156,14 +163,14 @@ class SoftEtherAPI:
             }
         })
 
-    def setServerPassword(self, password: str):
+    def set_server_password(self, password: str):
         """
         Set VPN server administrator password
 
         :param password: Plaintext password for VPN server
         :return: Dict indicating new password
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "SetServerPassword",
@@ -172,7 +179,7 @@ class SoftEtherAPI:
             }
         })
 
-    def setServerCert(self, certBin: str, keyBin: str):
+    def set_server_cert(self, certBin: str, keyBin: str):
         """
         Set SSL certificate and private key of VPN server
 
@@ -180,7 +187,7 @@ class SoftEtherAPI:
         :param keyBin: SSL private key
         :return: Dict indicating status of certificate
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "SetServerCert",
@@ -190,40 +197,40 @@ class SoftEtherAPI:
             }
         })
 
-    def getServerCert(self):
+    def get_server_cert(self):
         """
         Get SSL certificate and private key of VPN server
 
         :return: Dict indicating status of certificate
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetServerCert",
             "params": {}
         })
 
-    def getServerCipher(self):
+    def get_server_cipher(self):
         """
         Get encrypted algorithm used for VPN communication
 
         :return: Dict indicating encrypted algorithm
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetServerCipher",
             "params": {}
         })
 
-    def setServerCipher(self, cipher: str):
+    def set_server_cipher(self, cipher: str):
         """
         Set encryption algorithm for VPN communication
 
         :param cipher: Compatible SoftEther algorithm (AES128-SHA)
         :return: Dict indicating encrypted algorithm
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "SetServerCipher",
@@ -232,7 +239,7 @@ class SoftEtherAPI:
             }
         })
 
-    def createHub(self, hubname: str, adminpass: str, online: bool, maxsession: int, noenum: bool, hubtype: int):
+    def create_hub(self, hubname: str, adminpass: str, online: bool, maxsession: int, noenum: bool, hubtype: int):
         """
         Create new Virtual Hub
 
@@ -244,7 +251,7 @@ class SoftEtherAPI:
         :param hubtype: Type of virtual hub (0: standalone, 1: static, 2: dyanmic)
         :return: Information of hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "CreateHub",
@@ -258,7 +265,7 @@ class SoftEtherAPI:
             }
         })
 
-    def setHub(self, hubname: str, adminpass: str, online: bool, maxsession: int, noenum: bool, hubtype: int):
+    def set_hub(self, hubname: str, adminpass: str, online: bool, maxsession: int, noenum: bool, hubtype: int):
         """
         Manage Virtual Hub
 
@@ -270,7 +277,7 @@ class SoftEtherAPI:
         :param hubtype: Type of virtual hub (0: standalone, 1: static, 2: dyanmic)
         :return: Information of hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "SetHub",
@@ -284,14 +291,14 @@ class SoftEtherAPI:
             }
         })
 
-    def getHub(self, hubname: str):
+    def get_hub(self, hubname: str):
         """
         Get hub information by name
 
         :param hubname: Name of virtual hub
         :return: Information of hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetHub",
@@ -300,27 +307,27 @@ class SoftEtherAPI:
             }
         })
 
-    def enumHub(self):
+    def enum_hub(self):
         """
         Get list of virtual hubs
 
         :return: List of virtual hubs
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnumHub",
             "params": {}
         })
 
-    def deleteHub(self, hubname: str):
+    def delete_hub(self, hubname: str):
         """
         Delete virtual hub
 
         :param hubname: Name of virtual hub
         :return: Dict of hub deleteds
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "DeleteHub",
@@ -329,27 +336,27 @@ class SoftEtherAPI:
             }
         })
 
-    def enumConnection(self):
+    def enum_connection(self):
         """
         Get list of TCP connections
 
         :return: Dict containg list of TCP connections
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnumConnection",
             "params": {}
         })
 
-    def disconnectConnection(self, connectName: str):
+    def disconnect_connection(self, connectName: str):
         """
         Disconnect TCP connection by name
 
         :param connectName: Connection name
         :return: TCP connection disconnected
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "DisconnectConnection",
@@ -358,14 +365,14 @@ class SoftEtherAPI:
             }
         })
 
-    def getConnectionInfo(self, connectName: str):
+    def get_connection_info(self, connectName: str):
         """
         Get TCP connection information by name
 
         :param connectName: Connection name
         :return: Connection information
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetConnectionInfo",
@@ -374,14 +381,14 @@ class SoftEtherAPI:
             }
         })
 
-    def setHubOnline(self, hubname: str, online: bool = True):
+    def set_hub_online(self, hubname: str, online: bool = True):
         """
         Switch Virtual Hub online/offline
 
         :param hubname: Name of virtual hub
         :param online: Online flag (default: True)
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "SetHubOnline",
@@ -391,14 +398,14 @@ class SoftEtherAPI:
             }
         })
 
-    def getHubStatus(self, hubname: str):
+    def get_hub_status(self, hubname: str):
         """
         Get hub status
 
         :param hubname: Name of virtual hub
         :return: Status of hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetHubStatus",
@@ -407,14 +414,14 @@ class SoftEtherAPI:
             }
         })
 
-    def getHubLog(self, hubname: str):
+    def get_hub_log(self, hubname: str):
         """
         Get hub logs
 
         :param hubname: Name of virtual hub
         :return: Logs of hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetHubLog",
@@ -430,7 +437,7 @@ class SoftEtherAPI:
         :param hubname: Name of virtual hub
         :param certBin: CA Certificate as string
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "AddCa",
@@ -440,14 +447,14 @@ class SoftEtherAPI:
             }
         })
 
-    def enumCa(self, hubname: str):
+    def enum_ca(self, hubname: str):
         """
         Get list of trusted CA certificates
 
         :param hubname: Name of virtual hub
         :return: List of trusted CA certificates of hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnumCa",
@@ -456,7 +463,7 @@ class SoftEtherAPI:
             }
         })
 
-    def createUser(self, hubname: str, name: str, realname: str, note: str, expiretime: str, authpassword: str):
+    def create_user(self, hubname: str, name: str, realname: str, note: str, expiretime: str, authpassword: str):
         """
         Create User
 
@@ -468,7 +475,7 @@ class SoftEtherAPI:
         :param authpassword: Password for user
         :return: User information
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "CreateUser",
@@ -483,7 +490,7 @@ class SoftEtherAPI:
             }
         })
 
-    def setUser(self, hubname: str, name: str, realname: str, note: str, expiretime: str, authpassword: str):
+    def set_user(self, hubname: str, name: str, realname: str, note: str, expiretime: str, authpassword: str):
         """
         Change user settings
 
@@ -495,7 +502,7 @@ class SoftEtherAPI:
         :param authpassword: Password for user
         :return: User information
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "SetUser",
@@ -510,7 +517,7 @@ class SoftEtherAPI:
             }
         })
 
-    def getUser(self, hubname: str, name: str):
+    def get_user(self, hubname: str, name: str):
         """
         Change user settings
 
@@ -518,7 +525,7 @@ class SoftEtherAPI:
         :param name: User name
         :return: User information
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetUser",
@@ -528,7 +535,7 @@ class SoftEtherAPI:
             }
         })
 
-    def deleteUser(self, hubname: str, name: str):
+    def delete_user(self, hubname: str, name: str):
         """
         Delete User
 
@@ -536,7 +543,7 @@ class SoftEtherAPI:
         :param name: User name
         :return: User information
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "DeleteUser",
@@ -546,14 +553,14 @@ class SoftEtherAPI:
             }
         })
 
-    def enumUser(self, hubname: str):
+    def enum_user(self, hubname: str):
         """
         Get list of users
 
         :param hubname: Name of virtual hub
         :return: Dict with list of users
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnumUser",
@@ -577,7 +584,7 @@ class SoftEtherAPI:
         :param hubname: Name of virtual hub
         :return: List of VPN sessions
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnumSession",
@@ -594,7 +601,7 @@ class SoftEtherAPI:
         :param name: Name of session
         :return: Status of session
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "GetSessionStatus",
@@ -604,7 +611,7 @@ class SoftEtherAPI:
             }
         })
 
-    def deleteSession(self, hubname: str, name: str):
+    def delete_session(self, hubname: str, name: str):
         """
         Delete session
 
@@ -612,7 +619,7 @@ class SoftEtherAPI:
         :param name: Name of session
         :return: Status of session
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "DeleteSession",
@@ -629,14 +636,14 @@ class SoftEtherAPI:
     #   - EnumMacTable
     #   - DeleteMacTable
 
-    def enableSecureNat(self, hubname: str):
+    def enable_secure_nat(self, hubname: str):
         """
         Enable SecureNAT (Virtual NAT and DHCP Server)
 
         :param hubname: Name of virtual hub
         :return: Virtual hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "EnableSecureNAT",
@@ -645,14 +652,14 @@ class SoftEtherAPI:
             }
         })
 
-    def disableSecureNat(self, hubname: str):
+    def disable_secure_nat(self, hubname: str):
         """
         Disable SecureNAT (Virtual NAT and DHCP Server)
 
         :param hubname: Name of virtual hub
         :return: Virtual hub
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "DisableSecureNAT",
@@ -661,13 +668,13 @@ class SoftEtherAPI:
             }
         })
 
-    def rebootServer(self):
+    def reboot_server(self):
         """
         Reboot server
 
         :return: Server status
         """
-        return self.requestHandler(json={
+        return self._request_handler(json={
             "jsonrpc": "2.0",
             "id": "rpc_call_id",
             "method": "RebootServer",
