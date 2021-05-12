@@ -11,15 +11,10 @@ import requests
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
+
+# Using requests to disable InsecureRequestWarning
+# SoftEther servers commonly have improper certificates
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
-"""
-To disable InsecureRequestWarning:
-
-    from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
-    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-"""
 
 
 class SoftEtherAPI:
