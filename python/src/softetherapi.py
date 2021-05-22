@@ -1,5 +1,5 @@
 # SoftEther Unofficial Client Library
-__author__ = 'scaredos'
+__author__ = 'scaredos'  # Steven
 
 __version__ = '0.0.1'
 __maintainer__ = 'scaredos'
@@ -10,7 +10,6 @@ import json
 import requests
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
 
 # Using requests to disable InsecureRequestWarning
 # SoftEther servers commonly have improper certificates
